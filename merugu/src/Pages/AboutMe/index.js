@@ -1,7 +1,20 @@
-
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Typography } from '@mui/material';
 export default function AboutMe(){
+const [loader,setLoader]= useState (true);
+const [aboutus,setAboutUs]= useState(null);
+const connectToServer = async ()=> axios.get('http://localhost:8500/AboutUs')
+                                  .then(res=>{
+                                    console.log(res.data);
+                                    setAboutUs(res.data);
+                                    setLoader(false)
+                                  }).catch(err=>console.log(err))
+       useEffect(()=>{
+        connectToServer();
+       },[])                           
     return(
+
         <>
         <div>
     <h3><Typography>Name: RaviMerugu</Typography></h3>
